@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 
@@ -6,5 +7,14 @@ export default defineConfig({
   plugins: [react()],
   define: {
     APP_VERSION: JSON.stringify(process.env.npm_package_version),
+  },
+  test: {
+    browser: {
+      provider: "playwright",
+      screenshotFailures: false,
+      enabled: true,
+      headless: true,
+      instances: [{ browser: "chromium" }],
+    },
   },
 });
