@@ -16,5 +16,6 @@ export default defineConfig({
       headless: true,
       instances: [{ browser: "chromium" }],
     },
+    exclude: ["**/node_modules/**", "**/dist/**", "**/e2e/**"],
   },
 });
