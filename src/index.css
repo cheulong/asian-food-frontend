@@ -82,14 +82,12 @@ button:focus-visible {
   width: 200px;
   margin: auto;
   margin-top: 10px;
-
 }
 
 .title-text {
-  margin-bottom:  0 ;
+  margin-bottom: 0;
   line-height: 36px;
 }
-
 
 .jp-menu {
   font-size: 0.6em;

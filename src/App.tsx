@@ -1,21 +1,22 @@
-import { useEffect, useState } from 'react'
-import './App.css'
+import { useEffect, useState } from "react";
+import "./App.css";
 
 type Menu = {
-  id: number
-  name: string
-  price: number
-}
+  id: number;
+  name: string;
+  price: number;
+};
 function App() {
-  const [menus, setMenus] = useState<Menu[]>([])
-const version = APP_VERSION
+  const [menus, setMenus] = useState<Menu[]>([]);
+  const version = APP_VERSION;
   useEffect(() => {
-    fetch('http://localhost:3000/v1/menus')
+    fetch("http://localhost:3000/v1/menus")
       .then((res) => res.json())
       .then((data) => {
-        setMenus(data)
-      })
-  }, [])
+        setMenus(data);
+      });
+  }, []);
+  console.log(`App version: ${version}`);
 
   return (
     <>
@@ -27,15 +28,19 @@ const version = APP_VERSION
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div> */}
-      <p className='label'>v{version}</p>
-      <h1 className='title-text'>Asian Food Menu<br/><span className='jp-menu'>メニュー</span></h1>
-      <div  className='title'/>
+      <p className="label">v{version}</p>
+      <h1 className="title-text">
+        Asian Food Menu
+        <br />
+        <span className="jp-menu">メニュー</span>
+      </h1>
+      <div className="title" />
       {menus.length > 0 ? (
         <ul>
           {menus.map((menu) => (
             <li key={menu.id} className="menu-item">
-                <p>{menu.name}</p>
-                <p>{menu.price}</p>
+              <p>{menu.name}</p>
+              <p>{menu.price}</p>
             </li>
           ))}
         </ul>
@@ -43,7 +48,7 @@ const version = APP_VERSION
         <p>Loading menus...</p>
       )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;

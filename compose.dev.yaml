@@ -16,5 +16,5 @@ services:
     #   - ./web:/app
     #   - /app/node_modules
     # environment:
-      # - CHOKIDAR_USEPOLLING=true
-      # - WATCHPACK_POLLING=true
+    # - CHOKIDAR_USEPOLLING=true
+    # - WATCHPACK_POLLING=true
