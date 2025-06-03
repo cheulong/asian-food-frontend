@@ -9,8 +9,7 @@ export default defineConfig({
   // Glob patterns or regular expressions to ignore test files.
   testIgnore: "*test-assets",
   // Reporter to use
-  //   reporter: "html",
-
+  reporter: "null",
   // Glob patterns or regular expressions that match test files.
   testMatch: "*e2e/*.test.ts",
   use: {
