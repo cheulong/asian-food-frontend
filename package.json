@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "test": "vitest run --passWithNoTests",
+    "test": "vitest run --reporter verbose",
     "test:coverage": "vitest run --coverage",
     "playwright": "playwright test",
     "playwright:ui": "playwright test --ui",
