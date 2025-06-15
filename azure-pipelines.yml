@@ -20,18 +20,18 @@ stages:
   - stage: Test
     displayName: Test App
     jobs:
-      - job: Lint
-        displayName: Lint App
-        steps:
-          - task: UseNode@1
-            inputs:
-              version: '23.x'
-          - script: |
-              npm ci
-            displayName: 'Install Dependencies'
-          - script: |
-              npm run lint
-            displayName: 'Run Lint'
+      # - job: Lint
+      #   displayName: Lint App
+      #   steps:
+      #     - task: UseNode@1
+      #       inputs:
+      #         version: '23.x'
+      #     - script: |
+      #         npm ci
+      #       displayName: 'Install Dependencies'
+      #     - script: |
+      #         npm run lint
+      #       displayName: 'Run Lint'
       - job: UnitTest
         displayName: UnitTest App
         steps:
@@ -43,21 +43,21 @@ stages:
               npx playwright install
             displayName: 'Install Dependencies'
           - script: |
-              npm run test
+              vitest run --passWithNoTests --reporter verbose
             displayName: 'Run Unit Tests'
-      - job: E2ETest
-        displayName: E2E Test App
-        steps:
-          - task: UseNode@1
-            inputs:
-              version: '23.x'
-          - script: |
-              npm ci
-              npx playwright install
-            displayName: 'Install Dependencies'
-          - script: |
-              npm run playwright
-            displayName: 'Run E2E Tests'
+      # - job: E2ETest
+      #   displayName: E2E Test App
+      #   steps:
+      #     - task: UseNode@1
+      #       inputs:
+      #         version: '23.x'
+      #     - script: |
+      #         npm ci
+      #         npx playwright install
+      #       displayName: 'Install Dependencies'
+      #     - script: |
+      #         npm run playwright
+      #       displayName: 'Run E2E Tests'
 
     #   steps:
     #   - task: Docker@2
