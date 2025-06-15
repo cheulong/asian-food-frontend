@@ -16,12 +16,16 @@ variables:
   containerRegistry: 'myacr.azurecr.io'
 
 stages:
+
   - stage: Test
     displayName: Test App
     jobs:
       - job: Lint
         displayName: Lint App
         steps:
+          - task: UseNode@1
+            inputs:
+              version: '23.x'
           - script: |
               npm ci
             displayName: 'Install Dependencies'
@@ -31,6 +35,9 @@ stages:
       - job: UnitTest
         displayName: UnitTest App
         steps:
+          - task: UseNode@1
+            inputs:
+              version: '23.x'
           - script: |
               npm ci
             displayName: 'Install Dependencies'
@@ -40,6 +47,9 @@ stages:
       - job: E2ETest
         displayName: E2E Test App
         steps:
+          - task: UseNode@1
+            inputs:
+              version: '23.x'
           - script: |
               npm ci
             displayName: 'Install Dependencies'
