@@ -1,7 +1,7 @@
 
 trigger:
   - main
-  - dev
+  - develop
 
 pool:
   name: Default
