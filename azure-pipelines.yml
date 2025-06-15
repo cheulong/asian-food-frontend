@@ -10,6 +10,7 @@ pool:
 variables:
   imageName: "asian-food-web-prod"
   containerRegistry: "docker.io/cheulong"
+  tag: "$(Build.BuildId)"
 
 stages:
   - stage: Test
@@ -50,7 +51,7 @@ stages:
             command: 'buildAndPush'
             Dockerfile: '**/Dockerfile.prod'
             tags: |
-              $(buildTag)
+              $(tag)
               latest
         - script: |
             docker rmi $(imageName):$(tag) || true
