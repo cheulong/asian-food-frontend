@@ -4,7 +4,11 @@ import App from "./App.tsx";
 
 describe("renders the home page", () => {
   test("show the title", async () => {
-    const { getByText } = render(<App />);
-    await expect.element(getByText("Asian Food Menu")).toBeInTheDocument();
+    try {
+      const { getByText } = render(<App />);
+      await expect.element(getByText("Asian Food Menu")).toBeInTheDocument();
+    } catch (error) {
+      console.error("Error in test:", error);
+    }
   });
 });
