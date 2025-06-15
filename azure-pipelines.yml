@@ -43,6 +43,7 @@ stages:
               npx playwright install
             displayName: 'Install Dependencies'
           - script: |
+              npm run dev
               npm run test
             displayName: 'Run Unit Tests'
       - job: E2ETest
