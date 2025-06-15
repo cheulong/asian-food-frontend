@@ -8,9 +8,9 @@ pool:
     - agent.name -equals master-node
 
 variables:
-  imageName: "asian-food-web-prod"
   containerRegistry: "docker.io/cheulong"
   tag: "$(Build.BuildId)"
+  imageName: "cheulong/asian-food-web-prod"
 
 stages:
   - stage: Test
