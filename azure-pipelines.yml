@@ -49,3 +49,6 @@ stages:
             repository: 'cheulong/asian-food-web-prod'
             command: 'buildAndPush'
             Dockerfile: '**/Dockerfile.prod'
+        - script: |
+            docker rmi $(imageName):$(tag)
+          displayName: 'Remove Docker image'
