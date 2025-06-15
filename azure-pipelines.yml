@@ -38,10 +38,9 @@ stages:
               version: "23.x"
           - script: |
               npm ci
-              npx playwright install
             displayName: "Install Dependencies"
           - script: |
-              npx playwright install --with-deps
+              npx playwright install
             displayName: "Install Playwright Dependencies"
           - script: |
               npm run test
