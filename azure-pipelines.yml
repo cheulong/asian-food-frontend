@@ -43,7 +43,7 @@ stages:
               npx playwright install
             displayName: 'Install Dependencies'
           - script: |
-              vitest run --passWithNoTests --reporter verbose
+              npm run test --reporter verbose
             displayName: 'Run Unit Tests'
       # - job: E2ETest
       #   displayName: E2E Test App
