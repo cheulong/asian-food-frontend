@@ -8,62 +8,44 @@ pool:
     - agent.name -equals master-node
 
 variables:
-  tag: "$(Build.BuildId)"
-  variables:
-  imageName: "my-node-app"
-  dockerRegistryServiceConnection: "MyACRServiceConnection" # Azure DevOps Docker registry connection name
-  containerRegistry: "myacr.azurecr.io"
+  imageName: "asian-food-web-prod"
+  containerRegistry: "docker.io/cheulong"
 
 stages:
   - stage: Test
     displayName: Test App
     jobs:
-      # - job: Lint
-      #   displayName: Lint App
-      #   steps:
-      #     - task: UseNode@1
-      #       inputs:
-      #         version: '23.x'
-      #     - script: |
-      #         npm ci
-      #       displayName: 'Install Dependencies'
-      #     - script: |
-      #         npm run lint
-      #       displayName: 'Run Lint'
-      - job: UnitTest
-        displayName: UnitTest App
+      - job: TestApp
+        displayName: Test App
         steps:
           - task: UseNode@1
             inputs:
-              version: "23.x"
+              version: '23.x'
           - script: |
               npm ci
-            displayName: "Install Dependencies"
+            displayName: 'Install Dependencies'
           - script: |
               npx playwright install
             displayName: "Install Playwright Dependencies"
           - script: |
+              npm run lint
+            displayName: 'Run Lint'
+          - script: |
               npm run test
             displayName: "Run Unit Tests"
-      # - job: E2ETest
-      #   displayName: E2E Test App
-      #   steps:
-      #     - task: UseNode@1
-      #       inputs:
-      #         version: '23.x'
-      #     - script: |
-      #         npm ci
-      #         npx playwright install
-      #       displayName: 'Install Dependencies'
-      #     - script: |
-      #         npm run playwright
-      #       displayName: 'Run E2E Tests'
-
-    #   steps:
-    #   - task: Docker@2
-    #     displayName: Build an image
-    #     inputs:
-    #       command: build
-    #       dockerfile: '$(Build.SourcesDirectory)/Dockerfile.prod'
-    #       tags: |
-    #         $(tag)
+          - script: |
+              npm run playwright
+            displayName: 'Run E2E Tests'
+  - stage: Build & Push
+    displayName: Build and Push Docker Image
+    dependsOn: Test
+    jobs:
+      - job: BuildAndPush
+        displayName: Build and Push Docker Image
+        steps:
+        - task: Docker@2
+          inputs:
+            containerRegistry: 'DockerHubConnection'
+            repository: 'cheulong/asian-food-web-prod'
+            command: 'buildAndPush'
+            Dockerfile: '**/Dockerfile.prod'
