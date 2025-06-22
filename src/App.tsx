@@ -14,6 +14,9 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         setMenus(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching menus:", error);
       });
   }, []);
   console.log(`App version: ${version}`);
