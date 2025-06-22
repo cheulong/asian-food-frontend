@@ -73,7 +73,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                git clone https://github.com/$(gitUsername)/asian-food-deployment.git
+                git clone https://github.com/cheulong/asian-food-deployment.git
                 echo $(gitUsername)
                 ls
                 cd /helm-webapp
