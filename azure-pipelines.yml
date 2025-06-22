@@ -8,9 +8,13 @@ pool:
     - agent.name -equals master-node
 
 variables:
-  containerRegistry: "docker.io/cheulong"
-  tag: "$(Build.BuildId)"
-  imageName: "cheulong/asian-food-web-prod"
+  - name: containerRegistry 
+    value: "docker.io/cheulong"
+  - name: tag 
+    value: "$(Build.BuildId)"
+  - name: imageName 
+    value: "cheulong/asian-food-web-prod"
+  - group: githubPAT-k8s-infra
 
 stages:
   - stage: Test
@@ -58,3 +62,24 @@ stages:
             docker rmi $(imageName):latest || true
           displayName: 'Remove Docker image'
 
+  - stage: UpdateManifestRepo
+    displayName: UpdateManifest
+    dependsOn: Build_Push
+    jobs:
+      - job: UpdateManifest
+        displayName: UpdateManifest
+        steps:
+          - task: Bash@3
+            inputs:
+              targetType: 'inline'
+              script: |
+                git clone https://github.com/$(gitUsername)/asian-food-deployment.git
+                cd helm-webapp
+                
+                 sed -i "s|imageTag: \"\$imageTag\"|imageTag: $tag|" values.dev.yaml
+                
+                git config user.name "azure-devops"
+                git config user.email "devops@searcheulong.com"
+                git commit -am "Update image to $tag"
+                git push origin main
+              workingDirectory: '$(System.DefaultWorkingDirectory)'
