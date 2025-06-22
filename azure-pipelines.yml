@@ -73,7 +73,8 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                git clone https://github.com/$(gitUsername)/asian-food-deployment.git
+                git clone https://github.com/$gitUsername/asian-food-deployment.git
+                echo $gitUsername
                 cd /helm-webapp
                 
                  sed -i "s|imageTag: \"\$imageTag\"|imageTag: $tag|" values.dev.yaml
