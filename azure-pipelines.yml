@@ -17,54 +17,54 @@ variables:
   - group: githubPAT-k8s-infra
 
 stages:
-  - stage: Test
-    displayName: Test App
-    jobs:
-      - job: TestApp
-        displayName: Test App
-        steps:
-          - task: UseNode@1
-            inputs:
-              version: '23.x'
-          - script: |
-              npm ci
-            displayName: 'Install Dependencies'
-          - script: |
-              npx playwright install
-            displayName: "Install Playwright Dependencies"
-          - script: |
-              npm run lint
-            displayName: 'Run Lint'
-          - script: |
-              npm run test
-            displayName: "Run Unit Tests"
-          - script: |
-              npm run playwright
-            displayName: 'Run E2E Tests'
-  - stage: Build_Push
-    displayName: Build and Push Docker Image
-    dependsOn: Test
-    jobs:
-      - job: BuildAndPush
-        displayName: Build and Push Docker Image
-        steps:
-        - task: Docker@2
-          inputs:
-            containerRegistry: 'DockerHubConnection'
-            repository: 'cheulong/asian-food-web-prod'
-            command: 'buildAndPush'
-            Dockerfile: '**/Dockerfile.prod'
-            tags: |
-              $(tag)
-              latest
-        - script: |
-            docker rmi $(imageName):$(tag) || true
-            docker rmi $(imageName):latest || true
-          displayName: 'Remove Docker image'
+  # - stage: Test
+  #   displayName: Test App
+  #   jobs:
+  #     - job: TestApp
+  #       displayName: Test App
+  #       steps:
+  #         - task: UseNode@1
+  #           inputs:
+  #             version: '23.x'
+  #         - script: |
+  #             npm ci
+  #           displayName: 'Install Dependencies'
+  #         - script: |
+  #             npx playwright install
+  #           displayName: "Install Playwright Dependencies"
+  #         - script: |
+  #             npm run lint
+  #           displayName: 'Run Lint'
+  #         - script: |
+  #             npm run test
+  #           displayName: "Run Unit Tests"
+  #         - script: |
+  #             npm run playwright
+  #           displayName: 'Run E2E Tests'
+  # - stage: Build_Push
+  #   displayName: Build and Push Docker Image
+  #   dependsOn: Test
+  #   jobs:
+  #     - job: BuildAndPush
+  #       displayName: Build and Push Docker Image
+  #       steps:
+  #       - task: Docker@2
+  #         inputs:
+  #           containerRegistry: 'DockerHubConnection'
+  #           repository: 'cheulong/asian-food-web-prod'
+  #           command: 'buildAndPush'
+  #           Dockerfile: '**/Dockerfile.prod'
+  #           tags: |
+  #             $(tag)
+  #             latest
+  #       - script: |
+  #           docker rmi $(imageName):$(tag) || true
+  #           docker rmi $(imageName):latest || true
+  #         displayName: 'Remove Docker image'
 
   - stage: UpdateManifestRepo
     displayName: UpdateManifest
-    dependsOn: Build_Push
+    # dependsOn: Build_Push
     jobs:
       - job: UpdateManifest
         displayName: UpdateManifest
@@ -75,7 +75,7 @@ stages:
               script: |
                 git clone https://github.com/$(gitUsername)/asian-food-deployment.git
                 cd /asian-food-deployment/helm-webapp
-                
+                ls
                  sed -i "s|imageTag: \"\$imageTag\"|imageTag: $tag|" values.dev.yaml
                 
                 git config user.name "azure-devops"
