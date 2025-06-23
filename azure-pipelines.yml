@@ -84,3 +84,15 @@ stages:
                 git commit -am "Update image to $tag"
                 git push origin main
               
+                echo "Checking for changes..."
+                if git diff --quiet; then
+                  echo "No changes to commit."
+                else
+                  git add ${{ variables.filePath }}
+                  git commit -m "Update imageTag to $imageTag"
+                  git push origin ${{ variables.branchName }}
+                fi
+            displayName: 'Update and Commit to GitHub'
+            env:
+              GH_USER: $(gitUsername)
+              GH_PAT: $(githubPAT)
