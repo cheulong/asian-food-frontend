@@ -74,7 +74,10 @@ stages:
               targetType: 'inline'
               script: |
                 mkdir k8s && cd k8s
-                git clone https://github.com/$(gitUsername)/asian-food-deployment.git
+                git config --global user.email "devops@yourdomain.com"
+                git config --global user.name "Azure DevOps Bot"
+                
+                git clone https://$(gitUsername):$(githubPAT)@github.com/$(gitUsername)/asian-food-deployment.git
                 cd asian-food-deployment/helm-webapp/
 
                 sed -i "s|imageTag:.*|imageTag: $tag|" values.dev.yaml
