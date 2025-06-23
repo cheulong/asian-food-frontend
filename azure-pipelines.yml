@@ -73,16 +73,14 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                git clone https://github.com/cheulong/asian-food-deployment.git
-                echo $(gitUsername)
-                ls
-                # cd /helm-webapp
+                git clone https://github.com/$(gitUsername)/asian-food-deployment.git
+                # cd /asian-food-deployment/helm-webapp
                 
-                #  sed -i "s|imageTag: \"\$imageTag\"|imageTag: $tag|" values.dev.yaml
+                 sed -i "s|imageTag: \"\$imageTag\"|imageTag: $tag|" values.dev.yaml
                 
-                # git config user.name "azure-devops"
-                # git config user.email "devops@searcheulong.com"
-                # git commit -am "Update image to $tag"
-                # git push origin main
+                git config user.name "azure-devops"
+                git config user.email "devops@searcheulong.com"
+                git commit -am "Update image to $tag"
+                git push origin main
               # workingDirectory: '$(System.DefaultWorkingDirectory)/k8s'
               
