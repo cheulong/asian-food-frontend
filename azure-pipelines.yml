@@ -76,7 +76,7 @@ stages:
                 mkdir k8s && cd k8s
                 git config --global user.email "devops@yourdomain.com"
                 git config --global user.name "Azure DevOps Bot"
-                
+                cd $GH_PAT
                 git clone https://$(gitUsername):$(githubPAT)@github.com/$(gitUsername)/asian-food-deployment.git
                 cd asian-food-deployment/helm-webapp/
 
