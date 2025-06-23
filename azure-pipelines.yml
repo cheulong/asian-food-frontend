@@ -76,7 +76,7 @@ stages:
                 mkdir k8s && cd k8s
                 git clone https://github.com/$(gitUsername)/asian-food-deployment.git
                 cd /asian-food-deployment
-                ls
+                ls -la
                  sed -i "s|imageTag: \"\$imageTag\"|imageTag: $tag|" values.dev.yaml
                 
                 git config user.name "azure-devops"
