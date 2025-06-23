@@ -75,7 +75,7 @@ stages:
               script: |
                 mkdir k8s && cd k8s
                 git clone https://github.com/$(gitUsername)/asian-food-deployment.git
-                cd /asian-food-deployment
+                cd asian-food-deployment/
                 ls -la
                  sed -i "s|imageTag: \"\$imageTag\"|imageTag: $tag|" values.dev.yaml
                 
