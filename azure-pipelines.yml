@@ -84,5 +84,5 @@ stages:
                 # git config user.email "devops@searcheulong.com"
                 # git commit -am "Update image to $tag"
                 # git push origin main
-              workingDirectory: '$(System.DefaultWorkingDirectory)/k8s'
+              # workingDirectory: '$(System.DefaultWorkingDirectory)/k8s'
               
