@@ -80,14 +80,14 @@ stages:
                 git clone https://$(gitUsername):$(githubPAT)@github.com/$(gitUsername)/asian-food-deployment.git
                 cd asian-food-deployment/helm-webapp/
 
-                sed -i "s|imageTag:.*|imageTag: $tag|" values.dev.yaml
+                sed -i "s|imageTag:.*|imageTag: $(tag)|" values.dev.yaml
                 
                 echo "Checking for changes..."
                 if git diff --quiet; then
                   echo "No changes to commit."
                 else
                   git add .
-                  git commit -m "Update imageTag to $tag"
+                  git commit -m "Update imageTag to $(tag)"
                   git push origin main
                 fi
             displayName: 'Update and Commit to GitHub'
