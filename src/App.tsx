@@ -9,8 +9,9 @@ type Menu = {
 function App() {
   const [menus, setMenus] = useState<Menu[]>([]);
   const version = APP_VERSION;
+
   useEffect(() => {
-    fetch("http://localhost:3000/v1/menus")
+    fetch(`${import.meta.env.VITE_API_URL}`)
       .then((res) => res.json())
       .then((data) => {
         setMenus(data);

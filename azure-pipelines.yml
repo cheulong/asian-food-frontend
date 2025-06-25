@@ -15,6 +15,7 @@ variables:
   - name: imageName 
     value: "cheulong/asian-food-web-prod"
   - group: githubPAT-k8s-infra
+  - group: VITE_API_URL
 
 stages:
   - stage: Test
@@ -57,6 +58,7 @@ stages:
             tags: |
               $(tag)
               latest
+            arguments: "--build-arg VITE_API_URL_ARG=$(VITE_API_URL)"
         - script: |
             docker rmi $(imageName):$(tag) || true
             docker rmi $(imageName):latest || true
