@@ -11,7 +11,7 @@ function App() {
   const version = APP_VERSION;
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}`)
+    fetch("asian-food-api-service:3000/v1/menus")
       .then((res) => res.json())
       .then((data) => {
         setMenus(data);
